@@ -1,5 +1,5 @@
 function [hrRes] = processECG(data, sr)
-% processECG Extract the HR (heart rate) for different modes
+    % processECG Extract the HR (heart rate) for different modes
     overlap = 500;
     modes = fieldnames(data);
     hrRes = zeros(numel(modes), 1);
