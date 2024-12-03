@@ -1,10 +1,7 @@
 function [hrRes] = processECG(data, sr)
-%processECG Extract the HR (heart rate) for different modes
-    % 1s overlap
+% processECG Extract the HR (heart rate) for different modes
     overlap = 500;
-
     modes = fieldnames(data);
-
     hrRes = zeros(numel(modes), 1);
 
     for i = 1:numel(modes)
@@ -15,7 +12,7 @@ function [hrRes] = processECG(data, sr)
         
         numOfTrials = size(modeData, 2);
 
-        for j =1 :numOfTrials
+        for j = 1:numOfTrials
             ecgSignal = [ecgSignal modeData(1:overlap, j)'];
 
             if j == numOfTrials
@@ -42,7 +39,6 @@ function [hrRes] = processECG(data, sr)
         % Convert R-R intervals to heart rate (beats per minute)
         heartRate = 60 ./ rrIntervals; % Heart rate in bpm
         
-       
         hrRes(i) = mean(heartRate);
     end
 end
