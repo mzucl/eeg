@@ -1,6 +1,6 @@
 function [] = exportToCSV(ids, data, patientsECG, header)
     % exportToCSV Export data to CSV files
-    % There is a separate CSV file for each mode ('neutral', 'sad') and each band
+    %   There is a separate CSV file for each mode ('neutral', 'sad') and each band
     
     % Get the field names of the struct
     modes = fieldnames(data);
