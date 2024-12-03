@@ -8,7 +8,7 @@ function [] = exportToCSV(ids, data, patientsECG, header)
     % Export ECG data
     ecgMatrix = cell2mat(patientsECG);
     % Add column names
-    ecgTable  = array2table(ecgMatrix, 'VariableNames', modes);
+    ecgTable  = array2table(ecgMatrix, 'VariableNames', modes(1:2));
     
     % Add ID column
     ecgTable  = addvars(ecgTable, ids, 'Before', 1, 'NewVariableNames', 'ID');
