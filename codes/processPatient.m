@@ -36,7 +36,7 @@ function [chLabels, EEGResults, ECGResults] = processPatient(fileName)
     % Bad trials
     badTrialsIdx = find([D.trials.bad] == 1);
     
-    % 'neutral' vs 'sad' movie clips
+    % 'Neutral' vs 'Sad' movie clips
     labels = {D.trials.label};
     
     % Find indices of 'neutral' labels
@@ -81,6 +81,7 @@ function [chLabels, EEGResults, ECGResults] = processPatient(fileName)
     
     % Power bands
     bandNames = fieldnames(freqBands);
+    
     % Loop through each frequency band
     for i = 1:numel(bandNames)
         bandName = bandNames{i};
@@ -88,16 +89,20 @@ function [chLabels, EEGResults, ECGResults] = processPatient(fileName)
         bandIdx  = dsearchn(hz', range');
     
         % 'neutral' mode
-        neutralPower    = allChannelsNeutralPower(:, bandIdx(1):bandIdx(2));
-        avgNeutralPower = mean(neutralPower, 2);
-        avgNeutralPower = 10 * log10(avgNeutralPower);
+        neutralPower      = allChannelsNeutralPower(:, bandIdx(1):bandIdx(2));
+        avgNeutralPower   = mean(neutralPower, 2);
+        avgNeutralPowerTr = 10 * log10(avgNeutralPower);
     
         % 'sad' mode
-        sadPower    = allChannelsSadPower(:, bandIdx(1):bandIdx(2));
-        avgSadPower = mean(sadPower, 2);
-        avgSadPower = 10 * log10(avgSadPower);
+        sadPower      = allChannelsSadPower(:, bandIdx(1):bandIdx(2));
+        avgSadPower   = mean(sadPower, 2);
+        avgSadPowerTr = 10 * log10(avgSadPower);
     
-        EEGResults.neutral.(bandName) = avgNeutralPower;
-        EEGResults.sad.(bandName)     = avgSadPower;
+        EEGResults.neutral.(bandName) = avgNeutralPowerTr;
+        EEGResults.sad.(bandName)     = avgSadPowerTr;
+    
+        % Raw values
+        EEGResults.neutral_raw.(bandName) = avgNeutralPower;
+        EEGResults.sad_raw.(bandName)     = avgSadPower;
     end
 end
